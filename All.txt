@@ -222,3 +222,1161 @@ Sama seperti function biasanya, kita juga bisa menambahkan return value, paramet
 Untuk mengakses method tersebut, kita bisa menggunakan tanda titik (.) dan diikuti dengan nama method nya. Sama seperti mengakses field
 
 Kode : Method
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  void sayHello(String paramName){
+    print('Hello $paramName, My Name is $name');
+  }
+
+  void hello(){
+    print("Hello, my name is $name");
+  }
+
+  String getName(){
+    return "Hello, my name is $name";
+  }
+
+}
+
+extension SayGoodByeOnPerson on Person {
+
+  void sayGoodBye(String paramName){
+    print("Good Bye $paramName, from $name");
+  }
+
+}
+
+void main(){
+
+  var person1 = Person();
+  person1.name = "Eko Kurniawan Khannedy";
+  person1.address = "Jakarta";
+  // person1.country = "Singapore"; tidak bisa mengubah final field
+
+  print(person1.name);
+  print(person1.address);
+  print(person1.country);
+
+  person1.sayHello("Budi");
+  person1.hello();
+  person1.sayGoodBye("Joko");
+
+  Person person2 = Person();
+  print(person2);
+
+}
+
+Kode : Memanggil Method
+  var person1 = Person();
+  person1.name = "Eko Kurniawan Khannedy";
+  person1.address = "Jakarta";
+  // person1.country = "Singapore"; tidak bisa mengubah final field
+
+  print(person1.name);
+  print(person1.address);
+  print(person1.country);
+
+  person1.sayHello("Budi");
+  person1.hello();
+  person1.sayGoodBye("Joko");
+
+  Person person2 = Person();
+  print(person2);
+
+Method Expression Body
+Saat membuat method, kadang-kadang kita hanya menggunakan satu baris kode
+Jika kita membuat method dengan body yang sangat sederhana, kita bisa gunakan expression body
+Expression body mirip seperti ketika kita membuat anonymous function
+
+Kode : Method Expression Body
+
+class Computer {
+  
+  // void startup() {
+  //   print("computer is starting");
+  // }
+
+  void startup() => print("computer is starting");
+
+  void shutdown() => print("computer is shutting down");
+
+  String getOperatingSystem() => "Linux";
+
+  // String getOperatingSystem(){
+  //   return "Linux";
+  // }
+
+}
+
+void main(){
+  var computer = Computer();
+  computer.startup();
+  computer.shutdown();
+  print(computer.getOperatingSystem());
+}
+
+Kode : Memanggil Method Expression Body
+void main(){
+  var computer = Computer();
+  computer.startup();
+  computer.shutdown();
+  print(computer.getOperatingSystem());
+}
+
+Extension Method
+Extension Method adalah cara menambahkan method terhadap Class yang sudah ada, tanpa harus mengubah Class tersebut
+Hal ini kadang bermanfaat jika misal Class nya adalah Class milik library yang bukan kita yang membuatnya
+
+Membuat Extension Method
+Membuat Extension Method hampir mirip dengan membuat class, namun kita perlu menggunakan kata kunci extension diikuti nama extension lalu diikuti kata kunci on dan nama Class yang ingin kita tambahkan extension method nya
+
+Kode : Extension Method
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  void sayHello(String paramName){
+    print('Hello $paramName, My Name is $name');
+  }
+
+  void hello(){
+    print("Hello, my name is $name");
+  }
+
+  String getName(){
+    return "Hello, my name is $name";
+  }
+
+}
+
+extension SayGoodByeOnPerson on Person {
+
+  void sayGoodBye(String paramName){
+    print("Good Bye $paramName, from $name");
+  }
+
+}
+
+void main(){
+
+  var person1 = Person();
+  person1.name = "Eko Kurniawan Khannedy";
+  person1.address = "Jakarta";
+  // person1.country = "Singapore"; tidak bisa mengubah final field
+
+  print(person1.name);
+  print(person1.address);
+  print(person1.country);
+
+  person1.sayHello("Budi");
+  person1.hello();
+  person1.sayGoodBye("Joko");
+
+  Person person2 = Person();
+  print(person2);
+
+}
+
+extension SayGoodByeOnPerson on Person {
+
+  void sayGoodBye(String paramName){
+    print("Good Bye $paramName, from $name");
+  }
+
+}
+
+Kode : Menggunakan Extension Method
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  void sayHello(String paramName){
+    print('Hello $paramName, My Name is $name');
+  }
+
+  void hello(){
+    print("Hello, my name is $name");
+  }
+
+  String getName(){
+    return "Hello, my name is $name";
+  }
+
+}
+
+extension SayGoodByeOnPerson on Person {
+
+  void sayGoodBye(String paramName){
+    print("Good Bye $paramName, from $name");
+  }
+
+}
+
+void main(){
+
+  var person1 = Person();
+  person1.name = "Eko Kurniawan Khannedy";
+  person1.address = "Jakarta";
+  // person1.country = "Singapore"; tidak bisa mengubah final field
+
+  print(person1.name);
+  print(person1.address);
+  print(person1.country);
+
+  person1.sayHello("Budi");
+  person1.hello();
+  person1.sayGoodBye("Joko");
+
+  Person person2 = Person();
+  print(person2);
+
+}
+
+Operator
+Operator adalah method dengan nama yang spesial
+Dart memperbolehkan kita membuat method dengan nama operator
+
+Daftar Operator
+
+Membuat Operator
+Untuk membuat operator, kita bisa seperti membuat Method, namun nama method diganti menjadi kata kunci operator diikuti dengan operator nya
+
+Kode : Membuat Operator
+
+class Orange {
+
+  int quantity = 0;
+
+  Orange operator +(Orange other){
+    var result = Orange();
+    result.quantity = quantity + other.quantity;
+    return result;
+  }
+
+}
+
+void main(){
+
+  var orange1 = Orange();
+  orange1.quantity = 10;
+
+  var orange2 = Orange();
+  orange2.quantity = 10;
+
+  var orange3 = orange1 + orange2;
+  print(orange3.quantity);
+
+}
+
+Kode : Menggunakan Operator
+void main(){
+
+  var orange1 = Orange();
+  orange1.quantity = 10;
+
+  var orange2 = Orange();
+  orange2.quantity = 10;
+
+  var orange3 = orange1 + orange2;
+  print(orange3.quantity);
+
+}
+
+Constructor
+Saat kita membuat Object, maka kita seperti memanggil sebuah method, karena kita menggunakan kurung ()
+Di dalam class, kita bisa membuat constructor, constructor adalah method  yang akan dipanggil saat pertama kali Object dibuat.
+Mirip seperti di method, kita bisa memberi parameter pada constructor
+Nama constructor harus sama dengan nama class, dan tidak membutuhkan kata kunci void atau return value
+Ketika kita menambahkan Constructor pada class, maka saat membuat Object baru, kita wajib mengikuti parameter yang ada di Constructor
+
+Kode : Membuat Constructor
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  Person(String paramName, String paramAddress){
+    name = paramName;
+    address = paramAddress;
+  }
+
+}
+
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+}
+
+Kode : Menggunakan Constructor
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+}
+
+Variable Shadowing
+Variable shadowing adalah kejadian ketika kita membuat nama variable dengan nama yang sama di scope yang menutupi variable dengan nama yang sama di scope diatasnya
+Ini biasa terjadi seperti kita membuat nama parameter di method sama dengan nama field di class
+Saat terjadi variable shadowing, maka secara otomatis variable di scope diatasnya tidak bisa diakses
+
+Kode : Variable Shadowing
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  Person(String name, String address){
+    name = name;
+    address = address;
+  }
+
+}
+
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+}
+
+This Keyword
+Saat kita membuat kode di dalam block constructor atau method di dalam class, kita bisa menggunakan kata kunci this untuk mengakses object saat ini
+Misal kadang kita butuh mengakses sebuah field yang namanya sama dengan parameter method, hal ini tidak bisa dilakukan jika langsung menyebut nama field, kita bisa mengakses nama field tersebut dengan kata kunci this
+This juga tidak hanya digunakan untuk mengakses field milik object saat ini, namun juga bisa digunakan untuk mengakses method
+This bisa digunakan untuk mengatasi masalah variable shadowing
+
+Kode : This Keyword
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  Person(String name, String address){
+    this.name = name;
+    this.address = address;
+  }
+
+}
+
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+}
+
+Initializing Formal Parameter
+Kadang saat membuat Constructor, biasanya kita membuat parameter yang hanya digunakan untuk mengubah nilai yang ada di field
+Untuk kasus ini, kita bisa menggunakan fitur Formal Parameter, dimana pada parameter kita bisa langsung sebutkan field mana yang akan diubah
+Formal Parameter hanya bisa digunakan di Constructor, tidak bisa digunakan di Method
+Caranya kita cukup ubah parameternya dengan menggunakan this.namaField nya, tanpa perlu menggunakan tipe data
+
+Kode : Initializing Formal Parameter
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  Person(this.name, this.address);
+
+}
+
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+}
+
+Named Constructor
+Constructor hanya bisa dibuat satu saja, mirip seperti function atau method, kita tidak bisa membuat beberapa dengan nama yang sama.
+Namun terdapat fitur yang bernama Named Constructor, yaitu Constructor dengan nama yang berbeda
+Dengan menggunakan Named Constructor, kita bisa membuat Constructor lebih dari satu, namun wajib menggunakan nama yang berbeda
+Untuk membuatnya kita bisa menggunakan nama Class.namaConstructor nya
+Named Constructor bisa lebih dari satu
+
+Kode : Named Constructor
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  Person(this.name, this.address);
+
+  Person.withName(this.name);
+
+  Person.withAddress(this.address);
+
+}
+
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+  var person2 = Person.withName('Budi');
+  print(person2.name);
+  print(person2.address);
+
+  var person3 = Person.withAddress('Bandung');
+  print(person3.name);
+  print(person3.address);
+
+}
+
+Menggunakan Named Constructor
+Untuk membuat Object menggunakan Named Constructor, kita bisa langsung mengakses menggunakan Class.namedConstructor()
+
+Kode : Menggunakan Named Constructor
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+  var person2 = Person.withName('Budi');
+  print(person2.name);
+  print(person2.address);
+
+  var person3 = Person.withAddress('Bandung');
+  print(person3.name);
+  print(person3.address);
+
+}
+
+Redirecting Constructor
+Saat membuat Named Constructor, kita bisa memanggil Default Constructor, atau istilahnya adalah melakukan Redirecting Constructor
+Cara membuat Redirecting Constructor adalah dengan menambahkan : (titik dua), lalu diikuti dengan memanggil this(parameter), dimana this() disini adalah dianggap mengakses Default Constructor
+Saat membuat Redirecting Constructor, kita tidak bisa menambahkan body pada Redirecting Constructor
+
+Kode : Redirecting Constructor
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  Person(this.name, this.address);
+
+  Person.withName(String name) : this(name, "No Address");
+
+  Person.withAddress(String address) : this("No Name", address);
+
+  Person.fromJakarta() : this.withAddress("Jakarta");
+
+  Person.withNoName() : this.withName("No Name");
+
+}
+
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+  var person2 = Person.withName('Budi');
+  print(person2.name);
+  print(person2.address);
+
+  var person3 = Person.withAddress('Bandung');
+  print(person3.name);
+  print(person3.address);
+
+  var person4 = Person.fromJakarta();
+  print(person4.name);
+  print(person4.address);
+
+  var person5 = Person.withNoName();
+  print(person5.name);
+  print(person5.address);
+
+}
+
+Redirecting ke Named Constructor
+Redirecting juga bisa dilakukan ke Named Constructor
+Caranya kita ganti ketika memanggil this menjadi this.namedConstructor() 
+
+Kode : Redirecting Named Constructor
+
+class Person {
+
+  String name = "Guest";
+  String? address;
+  final String country = "Indonesia";
+
+  Person(this.name, this.address);
+
+  Person.withName(String name) : this(name, "No Address");
+
+  Person.withAddress(String address) : this("No Name", address);
+
+  Person.fromJakarta() : this.withAddress("Jakarta");
+
+  Person.withNoName() : this.withName("No Name");
+
+}
+
+void main(){
+
+  var person = Person("Eko", "Jakarta");
+  print(person.name);
+  print(person.address);
+
+  var person2 = Person.withName('Budi');
+  print(person2.name);
+  print(person2.address);
+
+  var person3 = Person.withAddress('Bandung');
+  print(person3.name);
+  print(person3.address);
+
+  var person4 = Person.fromJakarta();
+  print(person4.name);
+  print(person4.address);
+
+  var person5 = Person.withNoName();
+  print(person5.name);
+  print(person5.address);
+
+}
+
+Initializer List
+Saat kita membuat Constructor atau Named Constructor, terdapat fitur yang bernama Initializer List
+Initializer List merupakan tempat dimana kita bisa mengubah field pada Object, sebelum block body Constructor
+Hal ini menjadi lebih mudah dibanding mengubah field di dalam block Constructor
+
+Kode : Initializer List
+
+
+class Customer {
+
+  String firstName = '';
+  String lastName = '';
+  String fullName = '';
+
+  Customer(this.fullName)
+      : firstName = fullName.split(" ")[0],
+        lastName = fullName.split(" ")[1]{
+
+    print('Create new customer');
+
+  }
+
+}
+
+void main(){
+  var customer = Customer("Eko Kurniawan");
+  print(customer.fullName);
+  print(customer.firstName);
+  print(customer.lastName);
+}
+
+Constant Constructor
+Saat kita membuat Class yang tidak pernah berubah datanya (immutable data), ada baiknya kita buat Constructor nya dalam bentuk constant
+Untuk membuat constant constructor kita bisa gunakan kata kunci const
+Keuntungan saat menggunakan Constant Constructor adalah, ketika kita membuat constant object, secara otomatis object yang sama akan digunakan
+
+Kode : Constant Constructor
+
+class ImmutablePoint {
+
+  final int x;
+  final int y;
+
+  const ImmutablePoint(this.x, this.y);
+
+}
+
+void main(){
+
+  var point1 = const ImmutablePoint(10, 10);
+  var point2 = const ImmutablePoint(10, 10);
+
+  print(point1 == point2);
+
+}
+
+Kode : Menggunakan Constant Constructor
+void main(){
+
+  var point1 = const ImmutablePoint(10, 10);
+  var point2 = const ImmutablePoint(10, 10);
+
+  print(point1 == point2);
+
+}
+
+Factory Constructor
+Factory Constructor adalah sebuah fitur dimana kita bisa membuat constructor untuk membuat object baru, namun logika cara pembuatan object barunya bisa kita sesuaikan dengan yang kita inginkan
+Misal kita ingin mengembalikan object yang sama berkali-kali, kita bisa menggunakan Factory Constructor
+Untuk membuat Factory Constructor kita bisa menggunakan kata kunci factory sebelum pembuatan Constructor nya
+
+Kode : Factory Constructor
+
+class Database {
+
+  Database(){
+    print('Create new database connection');
+  }
+
+  static Database database = Database();
+
+  factory Database.get(){
+    return database;
+  }
+
+}
+
+void main(){
+  var database1 = Database.get();
+  var database2 = Database.get();
+
+  print(database1 == database2);
+}
+
+Kode : Menggunakan Factory Constructor
+void main(){
+  var database1 = Database.get();
+  var database2 = Database.get();
+
+  print(database1 == database2);
+}
+
+Cascade Notation
+Cascade Notation merupakan operator yang bisa kita gunakan untuk memberikan beberapa operasi pada object yang sama
+Ada dua jenis Cascase Notation, yaitu .. (titik titik), dan ?.. (tanda tanya titik titik)
+.. digunakan untuk object yang tidak nullable, sedangkan ?.. digunakan untuk object yang nullable
+
+Kode : Tanpa Cascade Notation
+
+class User {
+  String? username;
+  String? name;
+  String? email;
+}
+
+User? createUser(){
+  return null;
+}
+
+void main(){
+  // var user = User();
+  // user.username = "eko";
+  // user.name = "Eko";
+  // user.email = "eko@contoh.com";
+
+  var user = User()
+      ..username = "eko"
+      ..name = "Eko"
+      ..email = "eko@contoh.com";
+
+  User? user2 = createUser()
+    ?..username = "eko"
+    ..name = "Eko"
+    ..email = "eko@contoh.com";
+}
+
+Kode : Menggunakan Cascade Notation
+  var user = User()
+      ..username = "eko"
+      ..name = "Eko"
+      ..email = "eko@contoh.com";
+
+  User? user2 = createUser()
+    ?..username = "eko"
+    ..name = "Eko"
+    ..email = "eko@contoh.com";
+
+Kode : Nullable Cascade Notation
+  User? user2 = createUser()
+    ?..username = "eko"
+    ..name = "Eko"
+    ..email = "eko@contoh.com";
+
+Inheritance
+Inheritance atau pewarisan adalah kemampuan untuk menurunkan sebuah class ke class lain
+Dalam artian, kita bisa membuat class Parent dan class Child
+Class Child, hanya bisa punya satu class Parent, namun satu class Parent bisa punya banyak class Child
+Saat sebuah class diturunkan, maka semua field dan method yang ada di class Parent, secara otomatis akan dimiliki oleh class Child
+Untuk melakukan pewarisan, di class child, kita harus menggunakan kata kunci extends lalu diikuti dengan nama class parent nya.
+
+Kode : Inheritance
+
+class Manager {
+
+  String? name;
+
+  void sayHello(String name){
+    print('Hello $name, my name is ${this.name}');
+  }
+
+}
+
+class VicePresident extends Manager {
+
+}
+
+class CLevel extends Manager {
+
+}
+
+void main(){
+  var manager = Manager();
+  manager.name = "Budi";
+  manager.sayHello('Joko');
+
+  var vp = VicePresident();
+  vp.name = "Eko";
+  vp.sayHello('Joko');
+}
+
+Kode : Mengakses Method Parent
+void main(){
+  var manager = Manager();
+  manager.name = "Budi";
+  manager.sayHello('Joko');
+
+  var vp = VicePresident();
+  vp.name = "Eko";
+  vp.sayHello('Joko');
+}
+
+Method Overriding
+Method overriding adalah kemampuan mendeklarasikan ulang method di child class, yang sudah ada di parent class
+Saat kita melakukan proses overriding tersebut, secara otomatis ketika kita membuat object dari class child, method yang di class parent tidak bisa diakses lagi
+Saat melakukan method overriding, kita harus pastikan deklarasi method nya harus sama dengan di parent class nya
+
+Kode : Method Overriding
+
+class Manager {
+
+  String? name;
+
+  void sayHello(String name){
+    print('Hello $name, my name is Manager ${this.name}');
+  }
+
+}
+
+class VicePresident extends Manager {
+
+  void sayHello(String name){
+    print('Hello $name, my name is VP ${this.name}');
+  }
+
+}
+
+class CLevel extends Manager {
+
+  void sayHello(String name){
+    print('Hello $name, my name CLevel ${this.name}');
+  }
+
+}
+
+void main(){
+  var manager = Manager();
+  manager.name = "Budi";
+  manager.sayHello('Joko');
+
+  var vp = VicePresident();
+  vp.name = "Eko";
+  vp.sayHello('Joko');
+}
+
+Kode : Mengakses Method Overriding
+void main(){
+  var manager = Manager();
+  manager.name = "Budi";
+  manager.sayHello('Joko');
+
+  var vp = VicePresident();
+  vp.name = "Eko";
+  vp.sayHello('Joko');
+}
+
+Field Overriding
+Field overriding adalah kemampuan mendeklarasikan ulang field di child class, yang sudah ada di parent class
+Saat kita melakukan proses overriding tersebut, secara otomatis ketika kita membuat object dari class child, field yang di class parent tidak bisa diakses lagi
+Saat melakukan method overriding, kita harus pastikan deklarasi field nya harus sama dengan di parent class nya
+
+Kode : Field Overriding
+
+class Person {
+
+  String name = "Person";
+
+  void sayHello(String name){
+    print('Hi $name, my name is ${this.name}');
+  }
+
+}
+
+class OtherPerson extends Person {
+
+  String name = "Other Person";
+
+}
+
+void main(){
+  var person = Person();
+  person.sayHello('Eko');
+
+  var otherPerson = OtherPerson();
+  otherPerson.sayHello('Eko');
+}
+
+Kode : Mengakses Field Overriding
+void main(){
+  var person = Person();
+  person.sayHello('Eko');
+
+  var otherPerson = OtherPerson();
+  otherPerson.sayHello('Eko');
+}
+
+Super Keyword
+Kadang kita ingin mengakses method yang terdapat di class parent yang sudah terlanjur kita override di class child
+Untuk mengakses method milik class parent, kita bisa menggunakan kata kunci super
+Sederhananya, super digunakan untuk mengakses class parent
+Tidak hanya method, field milik parent class pun bisa kita akses menggunakan kata kunci super
+
+Kode : Super Keyword
+
+class Shape {
+
+  int getCorner(){
+    return 0;
+  }
+
+}
+
+class Rectangle extends Shape {
+
+  int getCorner(){
+    return 4;
+  }
+
+  int getParentCorner(){
+    return super.getCorner();
+  }
+
+}
+
+void main(){
+  var rectangle = Rectangle();
+  print(rectangle.getCorner());
+  print(rectangle.getParentCorner());
+}
+
+Kode : Mengakses Super Keyword
+void main(){
+  var rectangle = Rectangle();
+  print(rectangle.getCorner());
+  print(rectangle.getParentCorner());
+}
+
+Super Constructor
+Tidak hanya untuk mengakses method atau field yang ada di parent class, kata kunci super juga bisa digunakan untuk mengakses constructor
+Namun syaratnya untuk mengakses parent class constructor, kita harus mengaksesnya di dalam class child constructor
+Memanggil super constructor hanya bisa dilakukan dalam bentuk Redirecting Constructor
+
+Kode : Super Constructor
+
+class Manager {
+  String? name;
+  Manager(this.name);
+}
+
+class VicePresident extends Manager {
+  VicePresident(String name) : super(name){
+    print('Create new VicePresident');
+  }
+}
+
+void main(){
+
+  var manager = Manager('Budi');
+  print(manager.name);
+
+  var vp = VicePresident('Eko');
+  print(vp.name);
+
+}
+
+Kode : Menggunakan Super Constructor
+void main(){
+
+  var manager = Manager('Budi');
+  print(manager.name);
+
+  var vp = VicePresident('Eko');
+  print(vp.name);
+
+}
+
+Object Class
+Setiap class yang kita buat secara otomatis adalah turunan dari class Object, kecuali null
+Walaupun tidak secara langsung kita eksplisit menyebutkan extends Object, tapi secara otomatis akan membuat class kita extends Object
+Bisa dikatakan class Object adalah superclass untuk semua class
+https://api.dart.dev/stable/2.14.4/dart-core/Object-class.html 
+
+Isi Class Object
+
+Kode : Menggunakan Class Object Method
+
+class Person {}
+
+void main(){
+  var number = 100;
+  print(number.toString());
+
+  var person = Person();
+  print(person.toString());
+}
+
+Polymorphism
+Polymorphism berasal dari bahasa Yunani yang berarti banyak bentuk.
+Dalam OOP, Polymorphism adalah kemampuan sebuah object berubah bentuk menjadi bentuk lain
+Polymorphism erat hubungannya dengan Inheritance
+
+Kode : Inheritance
+
+class Employee {
+  String name;
+  Employee(this.name);
+}
+
+class Manager extends Employee{
+  Manager(String name) : super(name);
+}
+
+class VicePresident extends Manager{
+  VicePresident(String name) : super(name);
+}
+
+void main(){
+  Employee employee = Employee('Eko');
+  print(employee);
+
+  employee = Manager('Eko');
+  print(employee);
+
+  employee = VicePresident('Eko');
+  print(employee);
+}
+
+Kode : Polymorphism
+void main(){
+  Employee employee = Employee('Eko');
+  print(employee);
+
+  employee = Manager('Eko');
+  print(employee);
+
+  employee = VicePresident('Eko');
+  print(employee);
+}
+
+Kode : Method Polymorphism
+
+class Employee {
+  String name;
+  Employee(this.name);
+}
+
+class Manager extends Employee{
+  Manager(String name) : super(name);
+}
+
+class VicePresident extends Manager{
+  VicePresident(String name) : super(name);
+}
+
+void sayHello(Employee employee){
+  print('Hello ${employee.name}');
+}
+
+void main(){
+  sayHello(Employee('Eko'));
+  sayHello(Manager('Eko'));
+  sayHello(VicePresident('Eko'));
+}
+
+Type Check & Casts
+Saat menggunakan polimorfisme, kadang kita ingin melakukan konversi tipe data ke tipe data aslinya
+Namun agar aman, sebelum melakukan konversi, pastikan kita melakukan type check (pengecekan tipe data), dengan menggunakan kata kunci is
+Hasil operator is adalah boolean, true jika tipe data sesuai, false jika tidak sesuai
+Untuk melakukan konversi tipe data Object, kita bisa gunakan kata kunci as
+
+Kode : Type Check & Casts
+
+class Employee {
+  String name;
+  Employee(this.name);
+}
+
+class Manager extends Employee{
+  Manager(String name) : super(name);
+}
+
+class VicePresident extends Manager{
+  VicePresident(String name) : super(name);
+}
+
+void sayHello(Employee employee){
+  if(employee is VicePresident) {
+    VicePresident vicePresident = employee as VicePresident;
+    print('Hello VP ${vicePresident.name}');
+  }else if(employee is Manager){
+    Manager manager = employee as Manager;
+    print('Hello Manager ${manager.name}');
+  }else{
+    print('Hello ${employee.name}');
+  }
+}
+
+void main(){
+  sayHello(Employee('Eko'));
+  sayHello(Manager('Eko'));
+  sayHello(VicePresident('Eko'));
+}
+
+Import
+Import adalah kemampuan untuk menggunakan class, function atau variable yang berada di file yang berbeda
+Import sangat cocok digunakan ketika kode program kita sudah banyak dan ditempatkan di bayak file
+
+Kode : Class Category di data/category.dart
+class Category {
+  String id;
+  String name;
+
+  Category(this.id, this.name);
+
+bool operator ==(Object other) {
+    if (other is Category) {
+      if (id != other.id) {
+        return false;
+      } else if (name != other.name) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  int get hashCode {
+    var result = id.hashCode;
+    result += name.hashCode;
+    return result;
+  }
+}
+
+Kode : Import
+import 'data/category.dart';
+
+void main(){
+  var category = Category('1', 'Laptop');
+  print(category.id);
+  print(category.name);
+}
+
+Abstract Class
+Saat kita membuat class, kita bisa menjadikan sebuah class sebagai abstract class.
+Abstract class artinya, class tersebut tidak bisa dibuat sebagai object secara langsung, hanya bisa diturunkan
+Untuk membuat sebuah class menjadi abstract, kita bisa menggunakan kata kunci abstract sebelum kata kunci class
+Dengan demikian abstract class bisa kita gunakan sebagai kontrak untuk class child
+
+Kode : Abstract Class
+abstract class Location{
+  String? name;
+}
+
+class City extends Location {
+  City(String name){
+    this.name = name;
+  }
+}
+
+Kode : Membuat Abstract Class
+import 'data/location.dart';
+
+void main(){
+  var city = City('Jakarta');
+
+  // var location = Location(); // error
+}
+
+Abstract Method
+Saat kita membuat class yang abstract, kita bisa membuat abstract method juga di dalam class abstract tersebut
+Saat kita membuat sebuah abstract method, kita tidak boleh membuat block method untuk method tersebut
+Artinya, abstract method wajib di override di class child
+
+Kode : Abstract Method
+
+abstract class Animal {
+
+  String? name;
+
+  void run();
+
+}
+
+class Cat extends Animal {
+  
+  void run(){
+    print('Cat $name is running');
+  }
+  
+}
+
+Kode : Menggunakan Abstract Method
+
+import 'data/animal.dart';
+
+void main(){
+  var cat = Cat();
+  cat.name = 'Puss';
+  cat.run();
+}
+
+Access Modifier
+Secara default, saat kita membuat Field atau Method dalam sebuah class, maka semua Field dan Method tersebut bisa diakses oleh siapa saja
+Kadang-kadang kita ingin menyembunyikan Field atau Method
+Untuk menyembunyikan akses Field atau Method, kita bisa menambahkan _ (underscore) di awal Field atau Method nya
+Secara otomatis Field atau Method tersebut, hanya bisa di akses dari file tersebut, dan artinya tidak bisa diakses dari luar file
+
+Kode : Access Modifier
