@@ -1380,3 +1380,752 @@ Untuk menyembunyikan akses Field atau Method, kita bisa menambahkan _ (underscor
 Secara otomatis Field atau Method tersebut, hanya bisa di akses dari file tersebut, dan artinya tidak bisa diakses dari luar file
 
 Kode : Access Modifier
+
+class Product {
+
+  String? id;
+  String? name;
+  int? _quantity;
+
+  int? _getQuantity(){
+    return _quantity;
+  }
+
+  String toString(){
+    return "Product{id=$id, name=$name, quantity=$_quantity}";
+  }
+
+}
+
+void main(){
+  var product = Product();
+  product.id = '1';
+  product.name = 'Laptop';
+  product._quantity = 100;
+  product._getQuantity();
+}
+
+Kode : Menggunakan Access Modifier
+
+import 'data/product.dart';
+
+void main(){
+  var product = Product();
+  product.id = '1';
+  product.name = 'Laptop';
+  // product._getQuantity();
+  // product._quantity = 100;
+}
+
+Getter dan Setter
+
+Encapsulation
+Encapsulation artinya memastikan data sensitif sebuah object tersembunyi dari akses luar
+Hal ini bertujuan agar kita bisa menjaga agar data sebuah object tetap baik dan valid
+Untuk mencapai ini, biasanya kita akan membuat semua field yang tidak bisa diakses dari luar
+Agar bisa diubah, kita akan menyediakan method untuk mengubah dan mendapatkan field tersebut
+
+Getter dan Setter
+Proses encapsulation sudah dibuat standarisasinya, dimana kita bisa menggunakan Getter dan Setter method.
+Getter adalah function yang dibuat untuk mengambil data field
+Setter ada function untuk mengubah data field
+Untuk Getter, kita bisa menggunakan kata kunci get
+Untuk Setter, kita bisa menggunakan kata kunci set
+
+Kode : Getter dan Setter
+
+class Rectangle {
+
+  int _width = 1;
+  int _length = 1;
+
+  int get width => _width;
+
+  set width(int value){
+    if(value >= 1){
+      _width = value;
+    }
+  }
+
+  int get length => _length;
+
+  set length(int value){
+    if(value >= 1){
+      _length = value;
+    }
+  }
+
+}
+
+Expression Body
+Jika Getter dan Setter yang kita buat isinya hanya mengambil dan mengubah field, disarankan untuk menggunakan Expression Body
+Cara membuat Expression Body mirip seperti Anonymous Function
+
+Kode : Getter dan Setter Expression Body
+
+class Rectangle {
+
+  int _width = 1;
+  int _length = 1;
+
+  int get width => _width;
+
+  set width(int value){
+    if(value >= 1){
+      _width = value;
+    }
+  }
+
+  int get length => _length;
+
+  set length(int value){
+    if(value >= 1){
+      _length = value;
+    }
+  }
+
+}
+
+Getter dan Setter Yang Tidak Perlu
+Dalam bahasa pemrograman seperti Java atau C#, penggunaan Getter dan Setter sudah menjadi sesuatu yang sangat lumrah, hal ini karena mengakses Field dan Method sangatlah berbeda, oleh karena itu dari awal selalu dibuat Getter dan Setter
+Di Dart, hal ini tidak berlaku, jika isi Getter dan Setter hanya melakukan redirect data ke Field, disarankan tidak perlu menggunakan Getter dan Setter, cukup langsung saja menggunakan Field
+Hal ini dikarenakan dalam Dart, jika kedepannya kita ingin menambah Getter dan Setter, kita bisa tambahkan, tanpa harus mengubah kode client
+https://dart-lang.github.io/linter/lints/unnecessary_getters_setters.html 
+
+Kode : Validation di Setter
+
+class Rectangle {
+
+  int _width = 1;
+  int _length = 1;
+
+  int get width => _width;
+
+  set width(int value){
+    if(value >= 1){
+      _width = value;
+    }
+  }
+
+  int get length => _length;
+
+  set length(int value){
+    if(value >= 1){
+      _length = value;
+    }
+  }
+
+}
+
+Interface
+Sebelumnya kita sudah tahu bahwa abstract class bisa kita gunakan sebagai kontrak untuk class child nya.
+Namun sebenarnya yang lebih tepat untuk kontrak adalah Interface
+Jangan salah sangka bahwa Interface disini bukanlah User Interface
+Interface mirip seperti abstract class, yang membedakan adalah di Interface, semua method otomatis abstract
+Untuk mewariskan interface, kita tidak menggunakan kata kunci extends, melainkan implements
+
+Membuat Interface
+Hal yang sangat berbeda di Dart dan bahasa pemrograman Java, PHP dan lain-lain adalah saat kita membuat Interface
+Interface di Dart bisa diambil dari class apapun, saat kita membuat sebuah class, secara otomatis class tersebut merupakan interface untuk class itu sendiri
+Interface dari class tersebut, bisa kita gunakan pada class lain jika kita ingin
+Maka secara otomatis, kita harus mendeklarasikan semua method dan field yang terdapat pada class tersebut, karena yang kita ambil sebenarnya adalah interface nya, bukan class nya
+Anggap saja Interface adalah kontrak dari pembuatan Class
+
+Kode : Membuat Class
+
+class Car {
+
+  String name = "";
+
+  void drive(){
+
+  }
+
+  int getTier(){
+    return 0;
+  }
+
+}
+
+abstract class HasBrand {
+  String getBrand();
+}
+
+class Avanza implements Car, HasBrand {
+
+  String name = "Avanza";
+
+  String getBrand() => "Toyota";
+
+  void drive(){
+    print('Avanza is running');
+  }
+
+  int getTier(){
+    return 4;
+  }
+
+}
+
+Kode : Implement Interface
+class Avanza implements Car, HasBrand {
+
+  String name = "Avanza";
+
+  String getBrand() => "Toyota";
+
+  void drive(){
+    print('Avanza is running');
+  }
+
+  int getTier(){
+    return 4;
+  }
+
+}
+
+Multiple Interface Inheritance
+Hal yang membedakan ketika kita melakukan pewarisan adalah, kita hanya bisa melakukan extends terhadap satu class, namun kita bisa melakukan implements terhadap beberapa class
+Hal ini dikarenakan sebenarnya implements bukanlah melakukan pewarisan, melainkan mendeklarasikan ulang seluruh method dan field
+Anggap saja ini seperti membuat class yang berbeda, namun memiliki field dan method yang sama
+Untuk melakukan multiple implements, kita bisa gunakan pemisah tanda koma antar class yang kita implements
+
+Kode : Multiple Interface
+class Avanza implements Car, HasBrand {
+
+  String name = "Avanza";
+
+  String getBrand() => "Toyota";
+
+  void drive(){
+    print('Avanza is running');
+  }
+
+  int getTier(){
+    return 4;
+  }
+
+}
+
+Mixin
+Mixin merupakan reusable code yang bisa digunakan di kelas lain tanpa harus terkendala dengan pewarisan
+Mixin mirip melakukan copy paste code di beberapa tempat, namun dengan cara yang lebih baik
+Dengan Mixin, kita bisa membuat kode yang sama pada beberapa class
+Satu Class bisa menambah lebih dari satu mixin, sama seperti interface
+Untuk membuat Mixin, kita bisa menggunakan kata kunci mixin
+Untuk menggunakan Mixin, kita bisa menggunakan kata kunci with, diikuti dengan Mixin nya
+
+Kode : Membuat Mixin
+
+abstract class Multimedia {
+
+}
+
+mixin Playable on Multimedia {
+
+  String? name;
+
+  void play(){
+    print('Play $name');
+  }
+
+}
+
+mixin Stoppable on Multimedia {
+
+  String? name;
+
+  void stop(){
+    print('Stop $name');
+  }
+
+}
+
+class Video extends Multimedia with Playable, Stoppable{
+
+}
+
+class Audio extends Multimedia with Playable, Stoppable{
+
+}
+
+Kode : Menggunakan Mixin
+
+
+class Video extends Multimedia with Playable, Stoppable{
+
+}
+
+class Audio extends Multimedia with Playable, Stoppable{
+
+}
+
+Membatasi Mixin
+Secara default, semua class bisa menggunakan Mixin
+Namun jika kita ingin membatasi hanya class turunan tertentu, kita bisa tambahkan kata kunci on, diikuti dengan class yang kita batasi pada Mixin nya
+
+Kode : Membatasi Mixin
+
+abstract class Multimedia {
+
+}
+
+mixin Playable on Multimedia {
+
+  String? name;
+
+  void play(){
+    print('Play $name');
+  }
+
+}
+
+mixin Stoppable on Multimedia {
+
+  String? name;
+
+  void stop(){
+    print('Stop $name');
+  }
+
+}
+
+class Video extends Multimedia with Playable, Stoppable{
+
+}
+
+class Audio extends Multimedia with Playable, Stoppable{
+
+}
+
+Kode : Menggunakan Mixin
+
+import 'data/multimedia.dart';
+
+void main(){
+
+  var video = Video();
+  video.name = 'Belajar Dart';
+  video.play();
+  video.stop();
+
+}
+
+ToString Method
+Sebelumnya kita sudah bahas bahwa parent class untuk semua class kecuali null adalah Object
+Di dalam Object, terdapat method bernama toString(), method ini merupakan method untuk representasi String dari object
+Contohnya, saat kita menggunakan function print(object), sebenarnya yang dipanggil adalah print(object.toString())
+Kita bisa meng-override method toString() jika ingin mengimplementasikan representasi data String dari Class yang kita buat
+
+Kode : ToString Method
+
+class Product {
+
+  String? id;
+  String? name;
+  int? _quantity;
+
+  int? _getQuantity(){
+    return _quantity;
+  }
+
+  String toString(){
+    return "Product{id=$id, name=$name, quantity=$_quantity}";
+  }
+
+}
+
+void main(){
+  var product = Product();
+  product.id = '1';
+  product.name = 'Laptop';
+  product._quantity = 100;
+  product._getQuantity();
+}
+
+Kode : Menggunakan ToString Method
+
+
+import 'data/product.dart';
+
+void main(){
+  var product = Product();
+  product.id = '1';
+  product.name = 'Laptop';
+
+  print(product.toString());
+  print(product);
+}
+
+Equals Operator
+Untuk membandingkan dua buah object apakah sama atau tidak, biasanya kita menggunakan operator ==
+Secara default operator == adalah milik class Object, implementasinya jika kita menggunakan operator == milik class Object adalah akan melakukan pengecekan kesamaan object dari lokasi di memory
+Kadang-kadang, kita ingin mengimplementasikan logika untuk membandingkan object
+Untuk hal ini, kita bisa melakukan override operator == yang ada di class Object
+
+Kode : Equals Salah
+
+import 'data/category.dart';
+
+void main(){
+
+  var category1 = Category("1", "Laptop");
+  var category2 = Category("1", "Laptop");
+
+  print(category1 == category1);
+  print(category1 == category2);
+
+  print(category1.hashCode);
+  print(category2.hashCode);
+
+
+}
+
+Kode : Override Equals Method
+class Category {
+  String id;
+  String name;
+
+  Category(this.id, this.name);
+
+bool operator ==(Object other) {
+    if (other is Category) {
+      if (id != other.id) {
+        return false;
+      } else if (name != other.name) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  int get hashCode {
+    var result = id.hashCode;
+    result += name.hashCode;
+    return result;
+  }
+}
+
+HashCode Getter
+HashCode Getter adalah representasi integer object kita, mirip toString yang merupakan representasi String, hashCode adalah representasi integer
+HashCode sangat bermanfaat untuk membuat struktur data unique seperti HashMap, HashSet, dan lain-lain, karena cukup menggunakan hashCode method untuk mendapatkan identitas unique object kita
+Secara default hashCode akan mengembalikan nilai integer sesuai data di memory, namun kita bisa meng-override nya jika kita ingin
+
+Kontrak HashCode Method
+Tidak mudah meng-override method hashCode, karena ada kontraknya :
+Sebanyak apapun hashCode dipanggil, untuk object yang sama, harus menghasilkan data integer yang sama
+Jika ada 2 object yang sama jika dibandingkan menggunakan method equals, maka nilai hashCode nya juga harus sama
+
+Kode : Override HashCode Method
+class Category {
+  String id;
+  String name;
+
+  Category(this.id, this.name);
+
+bool operator ==(Object other) {
+    if (other is Category) {
+      if (id != other.id) {
+        return false;
+      } else if (name != other.name) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  int get hashCode {
+    var result = id.hashCode;
+    result += name.hashCode;
+    return result;
+  }
+}
+
+Kode : Menggunakan HashCode
+
+import 'data/category.dart';
+
+void main(){
+
+  var category1 = Category("1", "Laptop");
+  var category2 = Category("1", "Laptop");
+
+  print(category1 == category1);
+  print(category1 == category2);
+
+  print(category1.hashCode);
+  print(category2.hashCode);
+
+
+}
+
+No Such Method
+NoSuchMethod merupakan sebuah method yang terdapat di class Object yang bisa kita override untuk mendeteksi atau bereaksi ketika sebuah method yang tidak ada dipanggil
+NoSuchMethod hanya bisa digunakan ketika tipe objectnya adalah dynamic atau sebuah abstract class
+https://api.dart.dev/stable/2.14.4/dart-core/Object/noSuchMethod.html
+https://api.dart.dev/stable/2.14.4/dart-core/Invocation-class.html 
+
+Kode : Membuat NoSuchMethod
+
+import 'dart:mirrors';
+
+abstract class CategoryRepository {
+  id(String id);
+  name(String name);
+  quantity(int quantity);
+  location(String location);
+}
+
+class Repository extends CategoryRepository {
+
+  final String _name;
+
+  Repository(this._name);
+
+  dynamic noSuchMethod(Invocation invocation) {
+    var column = MirrorSystem.getName(invocation.memberName);
+    var value = invocation.positionalArguments.first;
+    var sql = "select * from $_name where $column = '$value'";
+    print(sql);
+  }
+
+}
+
+Kode : Menggunakan NoSuchMethod
+
+import 'data/repository.dart';
+
+void main(){
+  var repository = Repository('products');
+
+  repository.id('1');
+  repository.name('Laptop');
+  repository.quantity(1000);
+  repository.location('Jakarta');
+}
+
+NoSuchMethod untuk Abstract Class
+Salah satu penggunaan NoSuchMethod yang biasanya digunakan adalah sebagai implementasi Abstract Class
+Dengan menggunakan NoSuchMethod, kita tidak perlu mengimplementasikan method yang terdapat di abstract class lagi
+
+Kode : NoSuchMethod Abstract Class
+
+import 'dart:mirrors';
+
+abstract class CategoryRepository {
+  id(String id);
+  name(String name);
+  quantity(int quantity);
+  location(String location);
+}
+
+class Repository extends CategoryRepository {
+
+  final String _name;
+
+  Repository(this._name);
+
+  dynamic noSuchMethod(Invocation invocation) {
+    var column = MirrorSystem.getName(invocation.memberName);
+    var value = invocation.positionalArguments.first;
+    var sql = "select * from $_name where $column = '$value'";
+    print(sql);
+  }
+
+}
+
+Kode : Menggunakan NoSuchMethod
+
+import 'data/repository.dart';
+
+void main(){
+  var repository = Repository('products');
+
+  repository.id('1');
+  repository.name('Laptop');
+  repository.quantity(1000);
+  repository.location('Jakarta');
+}
+
+NoSuchMethod untuk Interface
+Selain Abstract Class, NoSuchMethod juga bisa digunakan sebagai implementasi untuk Interface
+
+Callable Class
+Callable Class merupakan class yang bisa dipanggil seperti function
+Untuk membuat Callable Class, kita perlu menambahkan sebuah method bernama call() di class tersebut
+Parameter dan Return Value dari Method tersebut bisa disesuaikan sesuai keinginan kita
+Setelah membuat objectnya, kita bisa langsung memanggil method call() tersebut menggunakan nama objectnya saja
+
+Kode : Callable Class
+
+class Sum {
+
+  int first;
+  int second;
+
+  Sum(this.first, this.second);
+
+  int call(){
+    return first + second;
+  }
+
+}
+
+typedef Jumlah = Sum;
+typedef Total = Sum;
+
+void main(){
+
+  var sum = Sum(10, 10);
+  print(sum());
+
+}
+
+Kode : Menggunakan Callable Class
+void main(){
+
+  var sum = Sum(10, 10);
+  print(sum());
+
+}
+
+Typedef
+Typedef merupakan fitur dimana kita bisa membuat alias untuk tipe data lainnya
+Ini cocok ketika misal terdapat class dengan nama yang sama, sehingga kita bisa menggunakan alias untuk nama lain
+Atau kita bisa mempersingkat nama class yang panjang dengan alias
+
+Kode : Typedef
+
+class Sum {
+
+  int first;
+  int second;
+
+  Sum(this.first, this.second);
+
+  int call(){
+    return first + second;
+  }
+
+}
+
+typedef Jumlah = Sum;
+typedef Total = Sum;
+
+void main(){
+
+  var sum = Sum(10, 10);
+  print(sum());
+
+}
+
+Kode : Menggunakan Typedef
+
+import 'data/sum.dart';
+
+void main(){
+
+  var jumlah = Jumlah(10, 10);
+  print(jumlah());
+
+  var total = Total(10, 10);
+  print(total());
+
+}
+
+Typedef untuk Function
+Typedef juga tidak hanya bisa digunakan untuk membuat alias untuk Class, tapi juga bisa digunakan untuk membuat alias untuk Function
+Namu perlu diperhatikan, sangat direkomendasikan tetap mendeklarasikan Function menggunakan deklarasi function nya, dibandingkan menggunakan typedef
+https://dart.dev/guides/language/effective-dart/design#prefer-inline-function-types-over-typedefs 
+
+Kode : Typedef untuk Function
+
+typedef Filter = String Function(String);
+
+void sayHello(String name, Filter filter){
+  print('Hello ${filter(name)}');
+}
+
+void main(){
+  sayHello('Eko', (value) => value.toUpperCase());
+}
+
+Static
+Static merupakan sebuah kata kunci yang digunakan untuk membuat field dan method yang bisa diakses tanpa harus membuat object nya
+Saat kita membuat field atau method yang static, artinya dia secara otomatis bisa diakses oleh object manapun, oleh karena itu perlu hati-hati ketika membuat field atau method status
+Field atau Method static bisa diakses oleh Method yang tidak static
+Namun Field atau Method static tidak bisa mengakses Field atau Method yang tidak static
+Biasanya static digunakan untuk membuat utility
+Untuk mengakses static Field atau Method, kita bisa langsung menggunakan nama Class diikuti dengan titik dan static Field atau Method nya
+
+Kode : Static Field
+
+class Application {
+
+  static final String name = 'Belajar Dart OOP';
+  static final String author = 'Eko Kurniawan';
+
+}
+
+void main(){
+  print(Application.name);
+  print(Application.author);
+}
+
+Kode : Static Method
+
+class Math {
+
+  static int sum(int first, int second) => first + second;
+
+}
+
+void main(){
+
+  print(Math.sum(10, 10));
+  print(Math.sum(100, 100));
+
+}
+
+Enum
+Enum merupakan fitur untuk membuat tipe data yang sudah jelas nilainya
+Untuk membuat Enum, kita bisa menggunakan kata kunci enum
+
+Kode : Membuat Enum
+
+
+enum CustomerLevel {
+  regular,
+  premium,
+  vip
+}
+
+class Customer {
+  String name;
+  CustomerLevel level;
+
+  Customer(this.name, this.level);
+}
+
+Kode : Menggunakan Enum
+
+import 'data/customer.dart';
+
+void main(){
+
+  var customer = Customer('Eko', CustomerLevel.vip);
+  print(customer.name);
+  print(customer.level);
+
+  print(CustomerLevel.values);
+
+}
+
+Exception
+
